@@ -14,19 +14,31 @@ import React, { useState } from "react";
 
 function App() {
   //Array de heroes. F = set
-  const [heroesSearchResult, setHeroesSearchResult] = useState([]);
-
+  const [heroesSearchResults, setHeroesSearchResults] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  function searchHeroOrComic(heroOrComic) {
+      if (heroOrComic === "") {
+          return;
+      }
+      fetch(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${heroOrComic}&ts=1925&apikey=1cbd647c852c32a1da3f922d7601548b&hash=628d798fa246cb3f5cc406fe721daea9`)
+          .then(response => response.json())
+          .then(response => {
+              console.log(response.data.results);
+              //Guarda los datos en heroesSearchResults
+              setHeroesSearchResults(response.data.results);
+          });
+  }
   return (
     <div className="App">
       <header className="App-header">
-        {/* Busca los heroes, devuelve array */}
-        <SearchBar onSearchChange={results => setHeroesSearchResult(results)} />
+        {/* Busca los heroes, devuelve array y lo guarda en heroesSearchResult */}
+        <SearchBar onSearch={heroOrComic => searchHeroOrComic(heroOrComic)} />
 
       </header>
       <ul id='root'>
         {
           //Map recorre los elementos de heroesSearchResult, mostrando a los heroes.
-          heroesSearchResult.map(item => (
+          heroesSearchResults.map(item => (
              
             <li key={item.id}>
             <p>{item.name}</p>
@@ -37,7 +49,7 @@ function App() {
           ))
         }
       </ul>
-      <button>Siguiente</button>
+      <button onClick={()=>{setPageNumber(pageNumber + 1); console.log(pageNumber)}}>Siguiente</button>
     </div>
   );
 }
