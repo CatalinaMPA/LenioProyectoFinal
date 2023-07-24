@@ -1,33 +1,83 @@
-/* .App {
+/*PPAL*/
+.App {
+  margin: 0%;
+  padding: 0%;
   text-align: center;
+  background-color: aquamarine;
 }
 
-.App-logo {
-  height: 40vmin;
+/*BARRA DE NAVEACION*/
+
+.img-logo{
+  max-width: 100%;
+  max-height: 100%;
+  height: 7%;
+  width: 7%;
   pointer-events: none;
+  background-color: aliceblue;
+  margin: 1%;
 }
 
+.nav-search {
+  height: 90%;
+  width: 90%;
+  background-color: rgb(15, 224, 43);
+  margin: 1%;
+}
+
+.nav-search-button{
+  height: 3%;
+  width: 3%;
+  margin-right: 1%;
+}
+
+.nav-search-input{
+  height: 90%;
+  width: 90%;
+}
+
+/*HEADER*/
+
+.App-header {
+  margin: 0%;
+  padding: 0%;
+  background-color: #0a0096;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center;
+  justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: white;
+  border-color: rgb(208, 255, 0) 5px;
+}
+
+/*MAIN*/
+
+.main-cards{
+  margin: 0%;
+  padding: 0%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  background-color: rgb(85, 29, 110);
+  list-style: none;
+}
+
+.main-card-hero-img{
+  max-width: 50%;
+  max-height: 70%;
+}
+
+
+/*
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+*/
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
+/*
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -37,8 +87,4 @@
   }
 } */
 
-.App {
-	margin: 1rem;
-	font-family: Arial, Helvetica, sans-serif;
-}
 
