@@ -68,6 +68,37 @@
   max-height: 70%;
 }
 
+#background-comic-list {
+  background-color:rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: none;
+}
+
+.comic-list {
+  background-color:white;
+  margin-top: 10%;
+  margin-left: 25%;
+  height: 50%;
+  width: 50%;
+}
+
+.list-comic {
+  display: flex;
+  flex-direction: row;
+  background-color: blueviolet;
+}
+
+.list-card-hero-img {
+  height: 7%;
+  width: 7%;
+}
+
+.button-next{
+  display: none;
+}
+
 
 /*
 @media (prefers-reduced-motion: no-preference) {
