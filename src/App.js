@@ -18,8 +18,8 @@ function App() {
   const [heroesComicList, setHeroesComicList] = useState([]);
   const [heroeComicOne, setHeroeComicOne] = useState('');
 
-  const [responseDataHeroe, setResponseDataHeroe] = useState([]);
-  const [responseDataComic, setResponseDataComic] = useState([]);
+  const [responseDataHeroe, setResponseDataHeroe] = useState();
+  const [responseDataComic, setResponseDataComic] = useState();
 
   useEffect(() => {
     // mostrar 8 heroes random
@@ -36,6 +36,9 @@ function App() {
     if (heroOrComic === "") {
       return;
     }
+
+    document.getElementById('button-next-id').style.display = "none";
+
     // fijarte analizar heroOrComic para ver si es un url de comic
     const comicsDefault = 'https://www.marvel.com/comics/issue/';
     if (heroOrComic.startsWith(comicsDefault)) {
@@ -51,25 +54,37 @@ function App() {
           setComicURLResult(response.data.results);
           setHeroesSearchResults([]);
         });
-      document.getElementById('button-next-id').style.display = "none";
       return;
     }
 
-    let results;
+    let results = [];
+
+    fetchHeroes();
+
     function fetchHeroes() {
+      //--HEROES
+      // buscamos los heroes
+      if (responseDataHeroe == undefined || responseDataHeroe.offset + responseDataHeroe.count < responseDataHeroe.total) {
+        fetch(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${heroOrComic}&offset=${offset * 4}&limit=4&${key}`)
+          .then(response => response.json())
+          .then(response => {
+            console.log(response);
+            console.log(response.data.results);
+            results = response.data.results;
+            // guardamos los resultados de la busqueda de heroes en la variable nueva results
+            setResponseDataHeroe(response.data);
+            fetchComics();
+            document.getElementById('button-next-id').style.display =
+              (response.data.offset + response.data.count < response.data.total) ? "block" : "none";
+          });
+      }
+      else {
+        fetchComics();
+      }
     }
+
     function fetchComics() {
-    }
-    //--HEROES
-    // buscamos los heroes
-    fetch(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${heroOrComic}&offset=${offset * 4}&limit=4&${key}`)
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        console.log(response.data.results);
-        results = response.data.results;
-        // guardamos los resultados de la busqueda de heroes en la variable nueva results
-        setResponseDataHeroe(response.data);
+      if (responseDataComic == undefined || responseDataComic.offset + responseDataComic.count < responseDataComic.total) {
         //--COMICS
         // buscamos los comics
         fetch(`http://gateway.marvel.com/v1/public/comics?titleStartsWith=${heroOrComic}&offset=${offset * 4}&limit=4&${key}`)
@@ -89,9 +104,11 @@ function App() {
               //con los resultados de la busqueda
               setHeroesSearchResults(heroesSearchResults.concat(results));
             }
-            document.getElementById('button-next-id').style.display = response.data.total ? "block" : "none";
+            document.getElementById('button-next-id').style.display =
+              (response.data.offset + response.data.count < response.data.total) ? "block" : "none";
           });
-      });
+      }
+    }
   }
 
   function fetchHeroesComicsList(comicId) {
@@ -169,7 +186,7 @@ function App() {
           //Map recorre los elementos de heroesSearchResult, mostrando a los heroes.
           heroesSearchResults.map(item => (
 
-            <li key={item.id}>
+            <li key={item.id + Math.random()}>
               <button
                 onClick={() => {
                   if (item.digitalId != undefined) {
