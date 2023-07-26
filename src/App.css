@@ -361,16 +361,4 @@
   }
 }
 
-@media only screen and (max-height: 915) {
-  .nav-search-button{
-    width: 8%;
-  }
-
-  .list-comic-heros{
-    margin-left: 0%;
-    height: 60%;
-    width: 40%;
-  }
-}
-
 
