@@ -9,7 +9,7 @@ export function SearchBar({onSearch}) {
             event.preventDefault();
             onSearch(heroOrComic);
           }}>
-            <button className="nav-search-button" type="submit">Buscar</button>
+            <button className="nav-search-button" type="submit">Lupa</button>
             <span className="visually-hidden"></span>
             <input
                 className="nav-search-input"

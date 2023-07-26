@@ -155,10 +155,10 @@ function App() {
       </header>
 
       <div id='background-comic-list'>
-        <div className='comic-list'>
-          <div>
-            <p>{heroeComicOne}</p>
-            <button
+        <div className='list-comic-heros'>
+          <div className='list-comic-heros-i'>
+            <p className='list-comic-heros-i-paragraph'>{heroeComicOne}</p>
+            <button className='list-comic-heros-i-button'
               onClick={() => {
                 document.getElementById('background-comic-list').style.display = "none";
               }}>
@@ -168,7 +168,7 @@ function App() {
           <ul>
             {
               heroesComicList.map(comic => (
-                <li key={comic.id} className='list-comic'>
+                <li key={comic.id} className='list-card-hero-float'>
                   {/* <p className='main-cardkasu-comic-description'>{comicDescription}</p> */}
                   <img className='list-card-hero-img'
                     src={comic.thumbnail.path + '.' + comic.thumbnail.extension}
@@ -181,13 +181,13 @@ function App() {
         </div>
       </div>
 
-      <ul className='main-cards' id='root'>
+      <ul className='main-cards' id='root1'>
         {
           //Map recorre los elementos de heroesSearchResult, mostrando a los heroes.
           heroesSearchResults.map(item => (
 
             <li key={item.id + Math.random()}>
-              <button
+              <button className='main-card-hero-button'
                 onClick={() => {
                   if (item.digitalId != undefined) {
                     return;
@@ -197,6 +197,7 @@ function App() {
                   setHeroeComicOne(item.name);
                 }}>
                 <p className='main-card-hero-name'>{item.name ? item.name : item.title}</p>
+                <div className='main-card-hero-gradient'></div>
                 <img className='main-card-hero-img'
                   src={item.thumbnail.path + '.' + item.thumbnail.extension}
                 />
@@ -218,18 +219,21 @@ function App() {
       <ul>
         {
           comicURLResult.map(comic => (
-            <li key={comic.id}>
-              <p className='main-card-comic-name'>{comic.title}</p>
-              <p className='main-card-comic-name'>{comicDate}</p>
-              {
-                comic.creators.items.map(creator => (
-                  <p key={creator.role + Math.random()} className='main-card-comic-creators'>{creator.role}: {creator.name}</p>
-                ))
-              }
-              <p className='main-cardkasu-comic-description'>{comicDescription}</p>
-              <img className='main-card-hero-img'
+            <li key={comic.id} className='main-comic'>
+              <img className='main-comic-hero-img'
                 src={comic.thumbnail.path + '.' + comic.thumbnail.extension}
               />
+              <div className='main-comic-i'>
+                <p className='main-comic-title'>{comic.title}</p>
+                <p className='main-comic-date'>{comicDate}</p>
+                {
+                  comic.creators.items.map(creator => (
+                    <p key={creator.role + Math.random()} className='main-comic-creators'>{creator.role}: {creator.name}</p>
+                  ))
+                }
+                <p className='main-comic-description'>{comicDescription}</p>
+              </div>
+
             </li>
           ))
         }
